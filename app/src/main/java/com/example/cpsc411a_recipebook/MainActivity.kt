@@ -13,6 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cpsc411a_recipebook.ui.theme.CPSC411A_RecipeBookTheme
 
@@ -22,22 +24,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CPSC411A_RecipeBookTheme {
-                val navController = rememberNavController;
-                //  Add more navigation logic here
+                val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = "home"
+                    ) {
+                        composable("home") { mainScreen(navController) }
+                        composable("recipies") { recipeScreen(navController) }
+                        composable("details") { recipeDetScreen(navController)}
+                        composable("favorites") { favScreen(navController) }
             }
         }
     }
 }
 
 class FavVM : ViewModel() {
-    val favRecipies = mutableStateOf<>()
+    val favRecipies = mutableStateOf(listOf<String>())
 
-    fun addFavR(){
-
+    fun addFavR(recipe: String) {
+        favRecipes.value = favRecipes.value + recipe
     }
 
-    fun delFavR(){
-
+    fun delFavR(recipe: String) {
+        favRecipes.value = favRecipes.value - recipe
     }
 }
 
