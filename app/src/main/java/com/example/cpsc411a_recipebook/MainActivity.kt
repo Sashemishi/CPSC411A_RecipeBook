@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
 }
 
 class FavVM : ViewModel() {
-    val favRecipies = mutableStateOf(listOf<String>())
+    val favRecipes = mutableStateOf(listOf<String>())
 
     fun addFavR(recipe: String) {
         favRecipes.value = favRecipes.value + recipe
@@ -67,19 +67,21 @@ fun MainScreen(navController: NavController){
     }
 }
     @Composable
-fun RecipeScreen(){
+fun RecipeScreen(navController: NavController){
 
-    Button(OnClick = { navController.navigate("details")}){
+
+
+    Button(onClick = { navController.navigate("details")}){
         Text("details")
     }
 }
 
 @Composable
-fun RecipeDetScreen(){
+fun RecipeDetScreen(navController: NavController){
 
 }
 
 @Composable
-fun FavScreen(){
+fun FavScreen(navController: NavController){
 
 }
