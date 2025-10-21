@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.cpsc411a_recipebook.ui.theme.CPSC411A_RecipeBookTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +22,41 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CPSC411A_RecipeBookTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val navController = rememberNavController;
+                //  Add more navigation logic here
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+class FavVM : ViewModel() {
+    val favRecipies = mutableStateOf<>()
+
+    fun addFavR(){
+
+    }
+
+    fun delFavR(){
+
+    }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    CPSC411A_RecipeBookTheme {
-        Greeting("Android")
-    }
+fun mainScreen(){
+
+}
+
+@Composable
+fun recipeScreen(){
+
+}
+
+@Composable
+fun recipeDetScreen(){
+
+}
+
+@Composable
+fun favScreen(){
+
 }
