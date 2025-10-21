@@ -1,10 +1,10 @@
 # CPSC411A_RecipeBook
 * Matthew Choi - sashemi@csu.fullerton.edu
-* Allison Yu - 
+* Allison Yu - ajyu0227@csu.fullerton.edu - 881971360
 
-This project creates a recipe book app that allows the user to check a list of recipies,
-check the details of selected recipe, and mark it as favorite. The favorited recipies
-should also have their own, dedicated screen, for user convenience.
+This project creates a recipe book app that allows the user to check a list of recipes,
+check the details of a selected recipe, and mark it as favorite. The favorited recipes
+should also have their own dedicated screen, for user convenience.
 
 # Project Requirements:
 * Build a multi-screen app using Jetpack Compose.
