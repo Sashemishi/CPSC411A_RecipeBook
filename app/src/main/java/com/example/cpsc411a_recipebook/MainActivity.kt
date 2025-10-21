@@ -67,21 +67,9 @@ fun MainScreen(navController: NavController){
     }
 }
     @Composable
-fun RecipeScreen(navController: NavController){
-
-
-
-    Button(onClick = { navController.navigate("details")}){
-        Text("details")
-    }
-}
+fun RecipeScreen(navController: NavController){}
+@Composable
+fun RecipeDetScreen(navController: NavController){}
 
 @Composable
-fun RecipeDetScreen(navController: NavController){
-
-}
-
-@Composable
-fun FavScreen(navController: NavController){
-
-}
+fun FavScreen(navController: NavController){}
