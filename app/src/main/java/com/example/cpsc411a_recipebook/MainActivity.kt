@@ -7,11 +7,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -24,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -37,14 +40,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             CPSC411A_RecipeBookTheme {
                 val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = "home"
-                    ) {
-                        composable("home") { MainScreen(navController) }
-                        composable("recipes") { RecipeScreen(navController) }
-                        composable("details") { RecipeDetScreen(navController)}
-                        composable("favorites") { FavScreen(navController) }
+                val favVM: FavVM = viewModel()
+
+                NavHost(
+                    navController = navController,
+                    startDestination = "home"
+                ) {
+                    composable("home") { MainScreen(navController) }
+                    composable("recipes") { RecipeScreen(navController, favVM) }
+                    composable("favorites") { FavScreen(navController, favVM) }
+                    composable("details/{recipeName}") { backStackEntry ->
+                        val recipeName = backStackEntry.arguments?.getString("recipeName")
+                        val recipe = favVM.recipes.find { it.name == recipeName }
+                        if (recipe != null) {
+                            RecipeDetScreen(navController, favVM, recipe)
+                        } else {
+                            Text("Recipe not found.")
+                        }
+                    }
+                }
             }
         }
     }
@@ -65,15 +79,16 @@ class FavVM : ViewModel() {
     var favRecipes = mutableStateOf(listOf<Recipe>())
         private set
 
-    fun addFav(recipe: String) {
+    fun addFav(recipe: Recipe) {
         if (!favRecipes.value.contains(recipe)) {
             favRecipes.value += recipe
         }
     }
 
-    fun delFav(recipe: String) {
+    fun delFav(recipe: Recipe) {
         favRecipes.value -= recipe
     }
+
 }
 
 @Composable
@@ -124,7 +139,31 @@ fun MainScreen(navController: NavController){
         }
     }
 @Composable
-fun RecipeDetScreen(navController: NavController){}
+fun RecipeDetScreen(navController: NavController, favVM: FavVM, recipe: Recipe) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text(recipe.name, style = MaterialTheme.typography.headlineSmall)
+        Spacer(Modifier.height(10.dp))
+        Text("Ingredients:", style = MaterialTheme.typography.titleMedium)
+        recipe.ingredients.forEach { Text("- $it") }
+
+        Spacer(Modifier.height(10.dp))
+        Text("Steps:", style = MaterialTheme.typography.titleMedium)
+        recipe.steps.forEachIndexed { i, step ->
+            Text("${i + 1}. $step")
+        }
+
+        Spacer(Modifier.height(20.dp))
+        Row {
+            Button(onClick = { favVM.addFav(recipe) }) {
+                Text("Add to Favorites")
+            }
+            Spacer(Modifier.width(10.dp))
+            Button(onClick = { navController.popBackStack() }) {
+                Text("Back")
+            }
+        }
+    }
+}
 
 @Composable
 fun FavScreen(navController: NavController, favVM: FavVM) {
