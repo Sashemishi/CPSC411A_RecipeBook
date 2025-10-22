@@ -127,4 +127,31 @@ fun MainScreen(navController: NavController){
 fun RecipeDetScreen(navController: NavController){}
 
 @Composable
-fun FavScreen(navController: NavController){}
+fun FavScreen(navController: NavController, favVM: FavVM) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Favorite Recipes", style = MaterialTheme.typography.headlineSmall)
+        Spacer(Modifier.height(10.dp))
+
+        if (favVM.favRecipes.value.isEmpty()) {
+            Text("No favorites yet.")
+        } else {
+            favVM.favRecipes.value.forEach { recipe ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp)
+                        .clickable { navController.navigate("details/${recipe.name}") },
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(recipe.name, style = MaterialTheme.typography.titleMedium)
+                        Spacer(Modifier.height(6.dp))
+                        Button(onClick = { favVM.delFav(recipe) }) {
+                            Text("Remove from Favorites")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
