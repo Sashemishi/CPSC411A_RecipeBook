@@ -1,5 +1,5 @@
 # CPSC411A_RecipeBook
-* Matthew Choi - sashemi@csu.fullerton.edu
+* Matthew Choi - sashemi@csu.fullerton.edu - 887016855
 * Allison Yu - ajyu0227@csu.fullerton.edu - 881971360
 
 This project creates a recipe book app that allows the user to check a list of recipes,
