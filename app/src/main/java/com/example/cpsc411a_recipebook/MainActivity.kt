@@ -4,16 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -69,14 +75,23 @@ class FavVM : ViewModel() {
 
 @Composable
 fun MainScreen(navController: NavController){
-    Column{
-        Text("Welcome to the 411 Recipe book")
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("🍳 Welcome to the 411A Recipe Book!", style = MaterialTheme.typography.headlineSmall)
+        Spacer(Modifier.height(20.dp))
 
-        Button(onClick = { navController.navigate("recipes")}){
-            Text("Recipes")
+        Button(onClick = { navController.navigate("recipes") }, modifier = Modifier.fillMaxWidth()) {
+            Text("View Recipes")
         }
-        Button(onClick = { navController.navigate("favorites")}){
-            Text("Favorite Recipes")
+
+        Spacer(Modifier.height(10.dp))
+
+        Button(onClick = { navController.navigate("favorites") }, modifier = Modifier.fillMaxWidth()) {
+            Text("View Favorite Recipes")
         }
     }
 }
