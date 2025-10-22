@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -62,13 +65,13 @@ class FavVM : ViewModel() {
     var favRecipes = mutableStateOf(listOf<Recipe>())
         private set
 
-    fun addFavR(recipe: String) {
+    fun addFav(recipe: String) {
         if (!favRecipes.value.contains(recipe)) {
             favRecipes.value += recipe
         }
     }
 
-    fun delFavR(recipe: String) {
+    fun delFav(recipe: String) {
         favRecipes.value -= recipe
     }
 }
@@ -96,7 +99,30 @@ fun MainScreen(navController: NavController){
     }
 }
     @Composable
-fun RecipeScreen(navController: NavController){}
+    fun RecipeScreen(navController: NavController, favVM: FavVM) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("All Recipes", style = MaterialTheme.typography.headlineSmall)
+            Spacer(Modifier.height(10.dp))
+
+            favVM.recipes.forEach { recipe ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp)
+                        .clickable { navController.navigate("details/${recipe.name}") },
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(recipe.name, style = MaterialTheme.typography.titleMedium)
+                        Spacer(Modifier.height(6.dp))
+                        Button(onClick = { favVM.addFav(recipe) }) {
+                            Text("Add to Favorites")
+                        }
+                    }
+                }
+            }
+        }
+    }
 @Composable
 fun RecipeDetScreen(navController: NavController){}
 
