@@ -40,6 +40,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+    data class Recipe(
+        val name: String,
+        val ingredients: List<String>,
+        val steps: List<String>
+    )
 
 class FavVM : ViewModel() {
     val favRecipes = mutableStateOf(listOf<String>())
