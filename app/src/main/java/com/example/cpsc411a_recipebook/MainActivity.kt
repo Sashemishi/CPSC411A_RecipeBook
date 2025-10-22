@@ -47,14 +47,23 @@ class MainActivity : ComponentActivity() {
     )
 
 class FavVM : ViewModel() {
-    val favRecipes = mutableStateOf(listOf<String>())
+    //  Hardcoded some recipes in
+    val recipes = listOf(
+        Recipe("Spaghetti", listOf("Noodles", "Tomato Sauce", "Meatballs"), listOf("Boil noodles", "Heat sauce", "Mix and serve")),
+        Recipe("Pancakes", listOf("Flour", "Eggs", "Milk", "Butter"), listOf("Mix ingredients", "Pour batter", "Flip and serve")),
+        Recipe("Salad", listOf("Lettuce", "Tomatoes", "Cucumbers", "Dressing"), listOf("Chop veggies", "Toss with dressing"))
+    )
+    var favRecipes = mutableStateOf(listOf<Recipe>())
+        private set
 
     fun addFavR(recipe: String) {
-        favRecipes.value = favRecipes.value + recipe
+        if (!favRecipes.value.contains(recipe)) {
+            favRecipes.value += recipe
+        }
     }
 
     fun delFavR(recipe: String) {
-        favRecipes.value = favRecipes.value - recipe
+        favRecipes.value -= recipe
     }
 }
 
