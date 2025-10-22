@@ -136,6 +136,9 @@ fun MainScreen(navController: NavController){
                     }
                 }
             }
+            Button(onClick = { navController.navigate("home")}, modifier = Modifier.fillMaxWidth()){
+                Text("Home")
+            }
         }
     }
 @Composable
@@ -161,6 +164,9 @@ fun RecipeDetScreen(navController: NavController, favVM: FavVM, recipe: Recipe) 
             Button(onClick = { navController.popBackStack() }) {
                 Text("Back")
             }
+        }
+        Button(onClick = { navController.navigate("home")}, modifier = Modifier.fillMaxWidth()){
+            Text("Home")
         }
     }
 }
@@ -191,6 +197,9 @@ fun FavScreen(navController: NavController, favVM: FavVM) {
                     }
                 }
             }
+        }
+        Button(onClick = { navController.navigate("home")}, modifier = Modifier.fillMaxWidth()){
+            Text("Home")
         }
     }
 }
