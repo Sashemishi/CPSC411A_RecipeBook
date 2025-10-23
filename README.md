@@ -15,9 +15,15 @@ should also have their own dedicated screen, for user convenience.
 * Goal → Practice connecting all key concepts in one working app.
 
 # Screens:
-* Home → List of recipes.
-* Details → Ingredients + steps.
+* Home
+* <img width="1280" height="2856" alt="Image" src="https://github.com/user-attachments/assets/78541b77-73cf-499f-ad88-0b2ccc26844f" />
+* List of recipes
+* <img width="1280" height="2856" alt="Image" src="https://github.com/user-attachments/assets/1a1106df-d010-464e-b876-401877c47705" />
+* Details → Ingredients + steps
+* <img width="1280" height="2856" alt="Image" src="https://github.com/user-attachments/assets/16e2c1a0-ed17-486a-9d64-aa4182628c88" />
 * Favorites → Saved recipes.
+* <img width="1280" height="2856" alt="Image" src="https://github.com/user-attachments/assets/67e9f07c-1906-41ee-ad6a-1ac4645445b9" />
+
 
 * State → Mark/unmark recipes as favorite.
 * ViewModel → Store recipes + favorite list.
